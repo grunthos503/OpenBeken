@@ -1,0 +1,145 @@
+# This is a Home Assistant package.
+
+# Create the directory /config/packages, and
+# add the following to configuration.yaml:
+#    homeassistant:
+#      packages: !include_dir_named packages
+
+# Make a copy of this file for each MT10W timer switch.
+
+# Replace "Downstairs_Bath_Fan_Timer" with the MQTT topic that you set in OpenBeken
+
+---
+mqtt:
+  switch:
+    - device:
+        name: "Downstairs Bath Fan Timer"
+        identifiers: &device_id Downstairs_Bath_Fan_Timer
+        manufacturer: Minoston
+        model: MT10W Timer Switch (OpenBeken)
+      unique_id: Downstairs_Bath_Fan_Timer-switch
+      name: Switch
+      state_topic: "Downstairs_Bath_Fan_Timer/1/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/1/set"
+      availability_topic: "Downstairs_Bath_Fan_Timer/connected"
+      payload_on: 1
+      payload_off: 0
+      state_on: 1
+      state_off: 0
+      device_class: switch
+
+  number:
+    - unique_id: Downstairs_Bath_Fan_Timer-countdown
+      name: Countdown
+      mode: box
+      min: 0
+      max: 86400
+      unit_of_measurement: "s"
+      state_topic: "Downstairs_Bath_Fan_Timer/2/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/2/set"
+      <<: &common
+        availability_topic: "Downstairs_Bath_Fan_Timer/connected"
+        device:
+          identifiers: *device_id
+
+    - unique_id: Downstairs_Bath_Fan_Timer-button-1
+      name: Button 1 Time
+      state_topic: "Downstairs_Bath_Fan_Timer/3/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/3/set"
+      <<: &button-time
+        mode: box
+        min: 1
+        max: 86400
+        unit_of_measurement: "s"
+        entity_category: config
+        enabled_by_default: false
+        <<: *common
+
+    - unique_id: Downstairs_Bath_Fan_Timer-button-2
+      name: Button 2 Time
+      state_topic: "Downstairs_Bath_Fan_Timer/4/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/4/set"
+      <<: *button-time
+
+    - unique_id: Downstairs_Bath_Fan_Timer-button-3
+      name: Button 3 Time
+      state_topic: "Downstairs_Bath_Fan_Timer/5/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/5/set"
+      <<: *button-time
+
+    - unique_id: Downstairs_Bath_Fan_Timer-button-4
+      name: Button 4 Time
+      state_topic: "Downstairs_Bath_Fan_Timer/6/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/6/set"
+      <<: *button-time
+
+    - unique_id: Downstairs_Bath_Fan_Timer-button-5
+      name: Button 5 Time
+      state_topic: "Downstairs_Bath_Fan_Timer/7/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/7/set"
+      <<: *button-time
+
+    - unique_id: Downstairs_Bath_Fan_Timer-button-6
+      name: Button 6 Time
+      state_topic: "Downstairs_Bath_Fan_Timer/8/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/8/set"
+      <<: *button-time
+
+    - unique_id: Downstairs_Bath_Fan_Timer-led-brightness
+      name: LED Brightness
+      min: 1
+      max: 100
+      entity_category: config
+      state_topic: "Downstairs_Bath_Fan_Timer/9/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/9/set"
+      <<: *common
+
+    - unique_id: Downstairs_Bath_Fan_Timer-active-key
+      name: Active Key
+      min: 1
+      max: 6
+      state_topic: "Downstairs_Bath_Fan_Timer/10/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/10/set"
+      <<: *common
+
+    - unique_id: Downstairs_Bath_Fan_Timer-power-status
+      name: Power Status
+      min: 0
+      max: 1
+      entity_category: config
+      enabled_by_default: false
+      state_topic: "Downstairs_Bath_Fan_Timer/11/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/11/set"
+      <<: *common
+
+    - unique_id: Downstairs_Bath_Fan_Timer-countdown-status
+      name: Countdown Status
+      min: 0
+      max: 1
+      entity_category: config
+      state_topic: "Downstairs_Bath_Fan_Timer/12/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/12/set"
+      <<: *common
+
+    - unique_id: Downstairs_Bath_Fan_Timer-always-on
+      name: Always On
+      min: 0
+      max: 1
+      enabled_by_default: false
+      state_topic: "Downstairs_Bath_Fan_Timer/13/get"
+      command_topic: "Downstairs_Bath_Fan_Timer/13/set"
+      <<: *common
+
+  sensor:
+    - unique_id: Downstairs_Bath_Fan_Timer-ssid
+      name: SSID
+      entity_category: diagnostic
+      state_topic: "Downstairs_Bath_Fan_Timer/ssid"
+      <<: *common
+
+    - unique_id: Downstairs_Bath_Fan_Timer-rssi
+      name: RSSI
+      entity_category: diagnostic
+      state_topic: "Downstairs_Bath_Fan_Timer/rssi"
+      <<: *common
+
