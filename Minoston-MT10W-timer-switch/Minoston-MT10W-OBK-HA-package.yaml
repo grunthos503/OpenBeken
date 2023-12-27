@@ -13,7 +13,7 @@
 mqtt:
   switch:
     - device:
-        name: "Downstairs Bath Fan Timer"
+        name: "Minoston MT10W Timer Switch"
         identifiers: &device_id MT10W_Timer
         manufacturer: Minoston
         model: MT10W Timer Switch (OpenBeken)
